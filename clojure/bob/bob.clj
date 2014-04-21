@@ -16,17 +16,13 @@
   "Return true if str ends with a ?"
   (= (last str) \?))
 
-(defn- atleast-one-ascii? [str]
-  "Return true if str contains atleast one ascii character"
-  (not (nil? (first (re-seq #"[a-zA-Z]" str)))))
-
 (defn- yelling? [str]
   "Return true if the string only contains upper-case;
   except when string contains only numbers, in which case,
   return false"
   (and 
     (= str (clojure.string/upper-case str))
-    (atleast-one-ascii? str)))
+    (re-seq #"[a-zA-Z]" str)))
 
 (defn response-for [str]
   (cond

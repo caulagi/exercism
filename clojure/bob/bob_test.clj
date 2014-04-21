@@ -43,4 +43,7 @@
 (deftest responds-to-number-question
   (is (= "Sure." (bob/response-for "4?"))))
 
+(deftest responds-to-just-question-as-question
+  (is (= "Sure." (bob/response-for "?"))))
+
 (run-tests)
