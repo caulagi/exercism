@@ -16,18 +16,12 @@
   "Return true if str ends with a ?"
   (= (last str) \?))
 
-(defn- ascii-letter? [chr]
-  "Return true if chr is an ascii character"
-  (or
-    (and (>= (int chr) (int \a)) (<= (int chr) (int \z)))
-    (and (>= (int chr) (int \A)) (<= (int chr) (int \Z)))))
-
 (defn- atleast-one-ascii? [str]
   "Return true if str contains atleast one ascii character"
-  (> (count (filter ascii-letter? str)) 0))
+  (not (nil? (first (re-seq #"[a-zA-Z]" str)))))
 
 (defn- yelling? [str]
-  "Return true if the string only contains upper-case.
+  "Return true if the string only contains upper-case;
   except when string contains only numbers, in which case,
   return false"
   (and 
