@@ -27,7 +27,7 @@
     \C \G
     \T \A
     \A \U
-    (assert false)))
+    (throw (AssertionError. "What are you doing?!"))))
 
 (defn- to-rna-iterative [str seq]
   "An iterative process as in SICP to iterate RNA"
