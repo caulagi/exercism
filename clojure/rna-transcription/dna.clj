@@ -29,13 +29,9 @@
     \A \U
     (throw (AssertionError. "What are you doing?!"))))
 
-(defn- to-rna-iterative [str seq]
-  "An iterative process as in SICP to iterate RNA"
-  (if (empty? str)
-    (clojure.string/join "" seq)
-    (to-rna-iterative
-      (rest str)
-      (cons (transcribe (first str)) seq))))
-
-(defn to-rna [str]
-  (to-rna-iterative (clojure.string/reverse str) '()))
+(defn to-rna [strand]
+  (loop [str (clojure.string/reverse strand) seq '()]
+    (if (empty? str)
+      (clojure.string/join "" seq)
+      (recur (rest str)
+        (cons (transcribe (first str)) seq)))))
