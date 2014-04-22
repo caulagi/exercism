@@ -30,8 +30,8 @@
     (throw (AssertionError. "What are you doing?!"))))
 
 (defn to-rna [strand]
-  (loop [str (clojure.string/reverse strand) seq '()]
+  (loop [str (clojure.string/reverse strand) acc '()]
     (if (empty? str)
-      (clojure.string/join "" seq)
+      (clojure.string/join "" acc)
       (recur (rest str)
-        (cons (transcribe (first str)) seq)))))
+        (cons (transcribe (first str)) acc)))))
