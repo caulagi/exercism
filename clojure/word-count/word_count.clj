@@ -9,7 +9,7 @@
 ;;;; free: 1
 
 (ns word-count
-  (:use [clojure.string :only [split lower-case]))
+  (:use [clojure.string :only [split lower-case]]))
 
 (defn- allow-letter? [chr]
   "Whether chr is [a-zA-Z0-9] or space"
