@@ -14,21 +14,25 @@
   "Return all characters in the string except the one at n"
   (apply str (concat (take n word) (nthrest word (inc n)))))
 
+(defn- indexof
+  "Return index of first character of w1 in w2"
+  [w1 w2]
+  (.indexOf w2 (str (first w1))))
+
 (defn- anagram-insensitive
-  "Whether word2 is an anagram of word1"
-  [word1 word2]
+  "Whether w2 is an anagram of w1"
+  [w1 w2]
   (cond
-    (not= (count word1) (count word2)) false
-    (empty? word1) true
-    (= word1 word2) false
-    (= (.indexOf word2 (str (first word1))) -1) false
-    :else (anagram-insensitive (rest word1)
-                               (copy-but word2 (.indexOf word2 (str (first word1)))))))
+    (not= (count w1) (count w2)) false
+    (empty? w1) true
+    (= w1 w2) false
+    (= (indexof w1 w2) -1) false
+    :else (recur (rest w1) (copy-but w2 (indexof w1 w2)))))
 
 (defn- anagram? 
-  "Whether word2 is an anagram of word1"
-  [word1 word2]
-  (anagram-insensitive (lower-case word1) (lower-case word2)))
+  "Whether w2 is an anagram of w1"
+  [w1 w2]
+  (anagram-insensitive (lower-case w1) (lower-case w2)))
 
 (defn anagrams-for [word candidates]
   (filter (partial anagram? word) candidates))
