@@ -34,5 +34,7 @@
   [w1 w2]
   (anagram-insensitive (lower-case w1) (lower-case w2)))
 
-(defn anagrams-for [word candidates]
+(defn anagrams-for
+  "Given a word and a list of possible anagrams, selects sublist of anagrams."
+  [word candidates]
   (filter (partial anagram? word) candidates))
