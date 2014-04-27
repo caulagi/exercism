@@ -9,23 +9,11 @@
 ;;;; free: 1
 
 (ns word-count
-  (:use [clojure.string :only [split lower-case]]))
-
-(defn- allow-letter? [chr]
-  "Whether chr is [a-zA-Z0-9] or space"
-  (or
-    (and (>= (int chr) (int \a)) (<= (int chr) (int \z)))
-    (and (>= (int chr) (int \A)) (<= (int chr) (int \Z)))
-    (and (>= (int chr) (int \0)) (<= (int chr) (int \9)))
-    (= (int chr) (int \ ))))
-  
-(defn- depunctuate [sentence]
-  "Return only ascii letters, numerals and spaces in the sentence"
-  (apply str (filter allow-letter? sentence)))
+  (:use [clojure.string :only [split lower-case blank?]]))
 
 (defn- tokenize [sentence]
   "Return a list of words in the sentence in lower-case"
-  (split (lower-case (depunctuate sentence)) #"\s+"))
+  (split (lower-case sentence) #"\W+"))
 
 (defn- process-word [word bucket]
   "Update the word count in the bucket"
