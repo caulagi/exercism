@@ -28,12 +28,14 @@
 (ns dna)
 
 (defn- get-current-count
+  "Return the count of nucleotides when it is valid"
   [acc nucleotide]
   (if (contains? acc nucleotide)
       (get acc nucleotide)
       (throw (Exception. "invalid nucleotide"))))
 
 (defn- update-count
+  "Update the count of nucleotide in the map"
   [acc nucleotide]
   (merge acc {nucleotide (inc (get-current-count acc nucleotide))}))
 
@@ -45,17 +47,18 @@
         (recur (rest strand) (update-count acc (first strand))))))
 
 (defn- valid-dna?
+  "Whether the nucleotide is a valid one"
   [nucleotide]
   (contains? (set [\A \C \G \T \U]) nucleotide))
 
+(defn- count-nucleotide?
+  "Whether we need to add this nucleotide to the sum?"
+  [current other]
+  (if (= current other) 1 0))
+    
 (defn count
-  ([nucleotide] (count nucleotide ""))
+  ([nucleotide] 0)
   ([nucleotide strand]
-    (cond
-      (empty? strand) 0
-      (not (valid-dna? nucleotide)) (throw (Exception. "invalid nucleotide"))
-      :else (loop [strand strand acc 0]
-                  (cond
-                    (empty? strand) acc
-                    (= nucleotide (first strand)) (recur (rest strand) (inc acc))
-                    :else (recur (rest strand) acc))))))
+    (if (not (valid-dna? nucleotide))
+        (throw (Exception. "invalid nucleotide"))
+        (reduce + (map (partial count-nucleotide? nucleotide) strand)))))
