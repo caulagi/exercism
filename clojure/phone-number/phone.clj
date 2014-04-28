@@ -17,11 +17,12 @@
 
 (defn- validate-number
   [n]
-  (cond
-    (= (count n) 10) n
-    (and (= (count n) 11)  (= (first n) "1")) (rest n)
-    (and (= (count n) 11)  (not= (first n) "1")) invalid-number
-    :else invalid-number))
+  (let [length (count n)]
+       (cond
+         (= length 10) n
+         (and (= length 11) (= (first n) "1")) (rest n)
+         (and (= length 11) (not= (first n) "1")) invalid-number
+         :else invalid-number)))
 
 (defn number
   [n]
