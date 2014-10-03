@@ -7,10 +7,10 @@ isQuestion que = last que == '?'
 -- Round about way of checking whether we are shouting,
 -- because the tests seem messed up?
 isShouting :: String -> Bool
-isShouting str = (not . null . filter isAlpha) str && (all isUpper . filter isAlpha) str
+isShouting str = (any isAlpha) str && (all isUpper . filter isAlpha) str
 
 isSilence :: String -> Bool
-isSilence str = all isSpace str
+isSilence = all isSpace
 
 responseFor :: String -> String
 responseFor x
