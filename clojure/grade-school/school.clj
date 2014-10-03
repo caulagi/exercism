@@ -21,11 +21,35 @@
 
 (ns school)
 
-(defn add [student grade]
-  {})
+(defprotocol GradeAdmin
+  (addStudent [this student]))
+  
+(defprotocol SchoolAdmin
+  (addStudent [this student grade]))
 
-(defn grade [level]
+(defrecord Grade [students]
+  GradeAdmin
+  (addStudent [this student]
+    (cons (this students) student)))
+
+(defrecord School [grades]
+  SchoolAdmin
+  (addStudent [this student grade]
+    (println (this grades))
+    (println grades)
+    (merge (this grades) {grade (concat (get (this grades) grade '()) student)})))
+
+(defn add
+  "Add a student's name to the roster for a grade"
+  [db student grade]
+  false) 
+
+(defn grade
+  "Get a list of all students enrolled in a grade"
+  [db level]
   false)
 
-(defn sorted []
+(defn sorted
+  "Get a sorted list of all students in all grades."
+  [db]
   false)
