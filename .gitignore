@@ -9,5 +9,11 @@ perl5
 python
 ruby
 scala
+cpp
+erlang
+fsharp
+lua
+swift
+csharp
 *.hi
 *.o
