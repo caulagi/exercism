@@ -9,3 +9,5 @@ perl5
 python
 ruby
 scala
+*.hi
+*.o
