@@ -4,9 +4,6 @@ import Data.Char
 isQuestion :: String -> Bool
 isQuestion que = last que == '?'
 
-isUpper' :: Char -> Bool
-isUpper' x = (x == '!') || (isUpper x) || (x == ' ')
-
 -- Round about way of checking whether we are shouting,
 -- because the tests seem messed up?
 isShouting :: String -> Bool
