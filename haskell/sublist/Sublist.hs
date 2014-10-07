@@ -1,4 +1,4 @@
-module Sublist (Sublist(Equal, Unequal, Sublist, Superlist), sublist) where
+module Sublist (Sublist(..), sublist) where
 
 data Sublist = Equal | Unequal | Sublist | Superlist deriving (Show, Eq)
 
