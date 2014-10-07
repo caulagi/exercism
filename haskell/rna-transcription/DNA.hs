@@ -6,7 +6,7 @@ transcribe c = case c of
     'G' -> 'C'
     'A' -> 'U'
     'T' -> 'A'
-    otherwise -> error (c : " is not valid DNA")
+    otherwise -> error (show c ++ " is not valid DNA")
 
 toRNA :: String -> String
 toRNA = map transcribe
