@@ -2,6 +2,7 @@ module Bob ( responseFor ) where
 import Data.Char
 
 isQuestion :: String -> Bool
+isQuestion "" = False
 isQuestion que = last que == '?'
 
 isShouting :: String -> Bool
