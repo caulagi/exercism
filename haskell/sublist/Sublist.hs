@@ -6,30 +6,26 @@ isEquallist :: (Eq a) => [a] -> [a] -> Bool
 isEquallist [] [] = True
 isEquallist [] a = False
 isEquallist a [] = False
-isEquallist a1 a2
-    | head a1 == head a2  = isEquallist (tail a1) (tail a2)
+isEquallist (x1:xs1) (y1:ys1)
+    | x1 == y1  = isEquallist xs1 ys1
     | otherwise = False
 
 isSublist :: (Eq a) => [a] -> [a] -> Bool
 isSublist [] [] = True
 isSublist [] a = True
 isSublist a [] = False
-isSublist a1 a2
-    | x1 == x2 && isEquallist xs1 (take (length xs1) xs2) = True
-    | otherwise = isSublist a1 xs2
-    where x1 = head a1
-          xs1 = tail a1
-          x2 = head a2
-          xs2 = tail a2
+isSublist x@(x1:xs1) (y1:ys1)
+    | x1 == y1 && isEquallist xs1 (take (length xs1) ys1) = True
+    | otherwise = isSublist x ys1
 
 sublist :: (Eq a) => [a] -> [a] -> Sublist
-sublist [] [] = Equal
-sublist [] a = Sublist
-sublist a [] = Superlist
-sublist a1 a2
-    | length a1 < length a2 && isSublist a1 a2 = Sublist
-    | length a1 < length a2 = Unequal
-    | length a1 > length a2 && isSublist a2 a1 = Superlist
-    | length a1 > length a2 = Unequal
-    | isEquallist a1 a2 = Equal
-    | otherwise = Unequal
+sublist a1 a2 = case compare (length a1) (length a2) of
+    LT -> case isSublist a1 a2 of
+            True -> Sublist
+            False -> Unequal
+    GT -> case isSublist a2 a1 of
+            True -> Superlist
+            False -> Unequal
+    otherwise -> case isEquallist a1 a2 of
+            True -> Equal
+            False -> Unequal
