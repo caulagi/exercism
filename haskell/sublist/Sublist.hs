@@ -1,6 +1,7 @@
 module Sublist (Sublist(..), sublist) where
 
-data Sublist = Equal | Unequal | Sublist | Superlist deriving (Show, Eq)
+data Sublist = Equal | Unequal | Sublist | Superlist
+  deriving (Show, Eq)
 
 isEquallist :: (Eq a) => [a] -> [a] -> Bool
 isEquallist [] [] = True
