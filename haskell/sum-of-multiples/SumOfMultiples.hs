@@ -3,13 +3,13 @@ module SumOfMultiples (
 , sumOfMultiplesDefault
 ) where
 
-import Data.List (nub)
-
-multiplesOf :: (Int, Int) -> [Int]
-multiplesOf (n, end) = [x | x <- [1..end-1], x `mod` n == 0]
+-- whether n is a multiple of any number in a
+multipleOf :: [Int] -> Int -> Bool
+multipleOf [] n = False
+multipleOf (x:xs) n = n `mod` x == 0 || multipleOf xs n
 
 sumOfMultiples :: [Int] -> Int -> Int
-sumOfMultiples a n = sum (nub (concatMap multiplesOf (zip a (replicate (length a) n))))
+sumOfMultiples a n = sum (filter (multipleOf a) [1..n-1])
 
 sumOfMultiplesDefault :: Int -> Int
 sumOfMultiplesDefault = sumOfMultiples [3,5]
